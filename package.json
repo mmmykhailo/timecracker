@@ -3,6 +3,11 @@
   "name": "timetracker",
   "description": "Timetracker app",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mmmykhailo/timetracker",
+    "branch": "features/autoupdate"
+  },
   "author": "mmmykhailo <mmmykhailo@proton.me>",
   "main": "app/background.js",
   "scripts": {
@@ -16,7 +21,8 @@
     "@tailwindcss/forms": "^0.5.3",
     "clsx": "^1.2.1",
     "electron-serve": "^1.1.0",
-    "electron-store": "^8.1.0"
+    "electron-store": "^8.1.0",
+    "update-electron-app": "^2.0.1"
   },
   "devDependencies": {
     "@types/node": "^18.11.18",

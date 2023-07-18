@@ -8,7 +8,7 @@ import { getPathFromDate } from "./helpers/datetime";
 import { createDirByPath } from "./helpers/fs";
 
 const isProd: boolean = process.env.NODE_ENV === "production";
-
+require("update-electron-app")();
 if (isProd) {
   serve({ directory: "app" });
 } else {
