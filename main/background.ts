@@ -1,5 +1,4 @@
 import fs from "fs";
-import path from "path";
 import { app, dialog, ipcMain } from "electron";
 import serve from "electron-serve";
 import { createWindow } from "./helpers";
@@ -19,7 +18,7 @@ const userDataDirectory = app.getPath("userData");
 (async () => {
   await app.whenReady();
 
-  const mainWindow = createWindow("main", {
+  const mainWindow = createWindow({
     width: 1000,
     height: 600,
     autoHideMenuBar: true,
