@@ -14,13 +14,13 @@ export type MainStore = {
 
 const storage: StateStorage = {
   getItem: async (name: string): Promise<string | null> => {
-    return (await ipcRenderer.invoke("storage:get-item", name)) || null;
+    return (await ipcRenderer.invoke("storage:get", name)) || null;
   },
   setItem: async (name: string, value: string): Promise<void> => {
-    await ipcRenderer.invoke("storage:set-item", name, value);
+    await ipcRenderer.invoke("storage:set", name, value);
   },
   removeItem: async (name: string): Promise<void> => {
-    await ipcRenderer.invoke("storage:remove-item", name);
+    await ipcRenderer.invoke("storage:delete", name);
   },
 };
 

@@ -30,12 +30,17 @@ export default function Home() {
     (async () => {
       const dayReport = await ipcRenderer.invoke(
         "app:read-day-report",
+        reportsFolder,
         selectedDate
       );
       setSelectedDateReport(dayReport || "");
 
       setLatestProjects(
-        await ipcRenderer.invoke("app:find-latest-projects", selectedDate)
+        await ipcRenderer.invoke(
+          "app:find-latest-projects",
+          reportsFolder,
+          selectedDate
+        )
       );
     })();
   }, [selectedDate]);
@@ -59,7 +64,12 @@ export default function Home() {
   }, [selectedDateActivities]);
 
   const saveSerializedReport = (serializedReport: string) => {
-    ipcRenderer.invoke("app:write-day-report", selectedDate, serializedReport);
+    ipcRenderer.invoke(
+      "app:write-day-report",
+      reportsFolder,
+      selectedDate,
+      serializedReport
+    );
     setSelectedDateReport(serializedReport);
   };
 
