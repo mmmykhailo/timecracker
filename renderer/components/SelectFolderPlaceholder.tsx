@@ -13,7 +13,6 @@ export default function FolderSelectorProps({
     ipcRenderer.invoke("app:select-folder").then((folder: string | null) => {
       if (folder) {
         setFolderLocation(folder);
-        console.log("folder");
       }
     });
   };

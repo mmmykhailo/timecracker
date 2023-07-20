@@ -30,12 +30,10 @@ export default function Header({ setPath, selectedPath }: HeaderProps) {
 
   useEffect(() => {
     setPath(selectedDropboxLocation);
-    console.log("setPath");
   }, [selectedDropboxLocation]);
 
   useEffect(() => {
     setSelectedDropboxLocation(selectedPath);
-    console.log("setSelectedDropboxLocation");
   }, [selectedPath]);
 
   return (
