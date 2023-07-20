@@ -1,5 +1,6 @@
 import { ipcRenderer } from "electron";
 import { useEffect, useState } from "react";
+import { shallow } from "zustand/shallow";
 import DateSelector from "../components/DateSelector";
 import Header from "../components/Header";
 import { ReportActivity, parseReport, serializeReport } from "../utils/reports";
@@ -7,8 +8,14 @@ import TrackTimeModal from "../components/TrackTimeModal";
 import ManualInputForm from "../components/ManualInputForm";
 import ActivitiesSection from "../components/ActivitiesSection";
 import SelectFolderPlaceholder from "../components/SelectFolderPlaceholder";
+import { useMainStore } from "../store/mainStore";
 
 export default function Home() {
+  const [reportsFolder, setReportsFolder] = useMainStore(
+    (state) => [state.reportsFolder, state.setReportsFolder],
+    shallow
+  );
+
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedDateReport, setSelectedDateReport] = useState("");
   const [selectedDateActivities, setSelectedDateActivities] =
@@ -18,7 +25,6 @@ export default function Home() {
     ReportActivity | "new"
   >(null);
   const [latestProjects, setLatestProjects] = useState<Array<string>>([]);
-  const [selectedPath, setSelectedPath] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -86,18 +92,13 @@ export default function Home() {
     setShouldAutosave(shouldAutosave);
   };
 
-  const handleDropboxLocationChange = (path: string) => {
-    setSelectedPath(path);
-    ipcRenderer.invoke("app:set-dropbox-folder", path);
-  };
-
   return (
     <div className="min-h-full">
-      <Header setPath={setSelectedPath} selectedPath={selectedPath} />
+      <Header />
 
       <main className="py-10">
         <div className="grid max-w-3xl grid-cols-1 gap-6 mx-auto sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
-          {selectedPath !== "" ? (
+          {reportsFolder ? (
             <>
               <div className="space-y-6 lg:col-start-1 lg:col-span-2">
                 <section>
@@ -131,9 +132,7 @@ export default function Home() {
               </section>
             </>
           ) : (
-            <SelectFolderPlaceholder
-              setFolderLocation={handleDropboxLocationChange}
-            />
+            <SelectFolderPlaceholder setFolder={setReportsFolder} />
           )}
         </div>
       </main>

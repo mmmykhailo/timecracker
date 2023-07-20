@@ -39,6 +39,17 @@ app.on("window-all-closed", () => {
   app.quit();
 });
 
+ipcMain.handle("storage:get-item", (event, name: string) => {
+  return store.get(name) as string | null;
+});
+ipcMain.handle("storage:set-item", (event, name: string, value: string) => {
+  store.set(name, value);
+  return value;
+});
+ipcMain.handle("storage:remove-item", (event, name: string) => {
+  store.delete(name);
+});
+
 ipcMain.handle("app:get-files", () => {
   const appDir = "/home/mmmykhailo";
   const files = fs.readdirSync(appDir);

@@ -25,7 +25,7 @@ export default function FolderSelector({
       onClick={clickHandler}
     >
       <span className="flex-shrink overflow-hidden text-ellipsis whitespace-nowrap">
-        {folderLocation}
+        {folderLocation || "Select a folder"}
       </span>
       <PencilIcon className="w-4 h-4" aria-hidden="true" />
     </button>

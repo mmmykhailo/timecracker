@@ -2,24 +2,25 @@ import React from "react";
 import { ipcRenderer } from "electron";
 import { PlusIcon } from "@heroicons/react/24/solid";
 
-type SelecrFoldetPlaceholderProps = {
-  setFolderLocation: (location: string) => void;
+type SelectFolderPlaceholderProps = {
+  setFolder: (path: string) => void;
 };
 
-export default function FolderSelectorProps({
-  setFolderLocation,
-}: SelecrFoldetPlaceholderProps) {
+const SelectFolderPlaceholder = ({
+  setFolder,
+}: SelectFolderPlaceholderProps) => {
   const clickHandler = () => {
     ipcRenderer.invoke("app:select-folder").then((folder: string | null) => {
       if (folder) {
-        setFolderLocation(folder);
+        setFolder(folder);
       }
     });
   };
+
   return (
-    <div className="text-center bg-white shadow sm:rounded-lg lg:col-start-1 lg:col-span-3 py-16">
+    <div className="py-16 text-center bg-white shadow sm:rounded-lg lg:col-start-1 lg:col-span-3">
       <svg
-        className="mx-auto h-12 w-12 text-gray-400"
+        className="w-12 h-12 mx-auto text-gray-400"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -50,4 +51,6 @@ export default function FolderSelectorProps({
       </div>
     </div>
   );
-}
+};
+
+export default SelectFolderPlaceholder;
