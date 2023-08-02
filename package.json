@@ -2,13 +2,29 @@
   "private": true,
   "name": "timetracker",
   "description": "Timetracker app",
-  "version": "1.0.0",
+  "version": "1.0.18",
   "author": "mmmykhailo <mmmykhailo@proton.me>",
   "main": "app/background.js",
   "scripts": {
     "dev": "nextron",
     "build": "nextron build",
-    "postinstall": "electron-builder install-app-deps"
+    "postinstall": "electron-builder install-app-deps",
+    "dist": "electron-builder"
+  },
+  "repository": "https://github.com/mmmykhailo/timetracker",
+  "publish": {
+    "provider": "github",
+    "releaseType": "release"
+  },
+  "build": {
+    "appId": "com.timetracker.autoupdate",
+    "productName": "Timetracker",
+    "win": {
+      "target": "nsis"
+    },
+    "directories": {
+      "output": "dist"
+    }
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
@@ -16,6 +32,8 @@
     "@tailwindcss/forms": "^0.5.3",
     "clsx": "^1.2.1",
     "electron-serve": "^1.1.0",
+    "electron-store": "^8.1.0",
+    "electron-updater": "^6.1.1",
     "zustand": "^4.3.9"
   },
   "devDependencies": {

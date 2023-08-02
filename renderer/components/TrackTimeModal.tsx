@@ -12,7 +12,7 @@ import {
 
 type TrackTimeModalProps = {
   isOpen: boolean;
-  editedActivity: ReportActivity | "new";
+  editedActivity: Partial<ReportActivity> | "new";
   latestProjects: Array<string>;
   close: () => void;
   submitActivity: (
@@ -47,8 +47,8 @@ export default function TrackTimeModal({
   }, [duration]);
 
   const isFormInvalid = useMemo(() => {
-    return !from || !to || !duration || duration < 0 || !project || !activity;
-  }, [from, to, duration, project, activity]);
+    return !from || !to || !duration || duration < 0 || !project;
+  }, [from, to, duration, project]);
 
   useEffect(() => {
     if (!editedActivity || editedActivity === "new") {
@@ -234,18 +234,11 @@ export default function TrackTimeModal({
                       Activity
                     </label>
                     <input
-                      required
                       value={activity}
                       onChange={(e) => setActivity(e.target.value)}
                       id="activity"
                       type="text"
-                      className={clsx(
-                        "block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm",
-                        {
-                          "border-red-300 text-red-900 placeholder-red-300":
-                            isValidationEnabled && !activity,
-                        }
-                      )}
+                      className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                     />
                   </div>
 

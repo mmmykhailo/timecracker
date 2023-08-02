@@ -1,9 +1,9 @@
-const { ipcMain } = require("electron");
-const path = require("path");
-const fs = require("fs-extra");
-const os = require("os");
-const open = require("open");
-const chokidar = require("chokidar");
+import { ipcMain } from "electron";
+import path from "path";
+import fs from "fs-extra";
+import os from "os";
+import open from "open";
+import chokidar from "chokidar";
 
 // local dependencies
 const notification = require("./notification");

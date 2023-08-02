@@ -1,6 +1,7 @@
 import fs from "fs";
 import { app, dialog, ipcMain } from "electron";
 import serve from "electron-serve";
+import { autoUpdater } from "electron-updater";
 import { createWindow } from "./helpers";
 import { getPathFromDate } from "./helpers/datetime";
 import { createDirByPath } from "./helpers/fs";
@@ -118,3 +119,14 @@ ipcMain.handle(
     return [...latestProjects];
   }
 );
+
+autoUpdater.autoDownload = false;
+autoUpdater.autoInstallOnAppQuit = true;
+
+app.whenReady().then(() => {
+  autoUpdater.checkForUpdates();
+});
+
+autoUpdater.on("update-available", (info) => {
+  autoUpdater.downloadUpdate();
+});
